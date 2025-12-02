@@ -2,8 +2,26 @@ require("dotenv").config();
 const express = require("express");
 const db = require("./db");
 
+const API_KEY = process.env.API_KEY;
+
+function verifyApiKey(req, res, next) {
+  const key = req.headers["x-api-key"];
+
+  if (!key) {
+    return res.status(401).json({ error: "Missing API key" });
+  }
+
+  if (key !== API_KEY) {
+    return res.status(403).json({ error: "Invalid API key" });
+  }
+
+  next();
+}
+
+
 const app = express();
 app.use(express.json());
+app.use(verifyApiKey);
 
 /**
  * GET /prices?area=legs&bundle=single&sex=F
