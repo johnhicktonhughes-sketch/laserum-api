@@ -103,7 +103,7 @@ app.get("/prices/bundles", async (req, res) => {
     SELECT *
     FROM trengo.laserum
     WHERE product_bundle = TRUE
-    ORDER BY name, product_bundle
+    ORDER BY price DESC;
   `;
 
   try {
