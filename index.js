@@ -114,7 +114,7 @@ app.get("/prices/bundles", async (req, res) => {
       return res.status(404).json({ message: "No bundles found" });
     }
 
-    res.json(rows);
+    res.json({data:rows});
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Database error" });
